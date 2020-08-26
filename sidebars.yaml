@@ -1,11 +1,11 @@
 training:
   - page: developer-portal/index.md
   - group: API Reference
-    expanded: false
+    expanded: true
     pages:
       - page: openapi/reference.page.yaml/*
   - group: Training exercises
-    expanded: true
+    expanded: false
     pages:
       - label: Setup
         page: developer-portal/setup.md
@@ -43,7 +43,7 @@ training:
       - label: Creating React components
         page: developer-portal/custom-component.mdx
   - group: Admin
-    expanded: true
+    expanded: false
     pages:
       - group: Routine
         expanded: true

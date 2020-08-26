@@ -1,10 +1,10 @@
 openapi: 3.0.3
 servers:
-  - url: '//petstore.swagger.io/v2'
+  - url: 'https://petstore.swagger.io/v2'
 info:
   description: >-
     You placed your server equipment in our Datacenter under our care. We thank you and take this 
-    responsiblity seriously. Our APIs will help you to monitor your equipment and us: CloudUla.
+    responsiblity seriously. Our APIs will help you monitor your equipment and us: CloudUla.
      
     CloudUla provides a set of APIs to access Datacenter stats, metrics and other important 
     information about your CloudUla Datacenter managed equipment.  You can find out more about
@@ -15,16 +15,17 @@ info:
      
     To call APIs without your own API Key please use the demo sandbox key DEMO_KEY.
   version: 1.0.0
-  title: Swagger Petstore
-  termsOfService: 'http://swagger.io/terms/'
+  title: CloudUla APIs
+  termsOfService: 'https://cloudula.io/terms/'
   contact:
+    name: Support Team
     email: support@cloudula.io
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: pet
-    description: Everything about your Pets
+  - name: server
+    description: Everything about your Servers
     externalDocs:
       description: Find out more
       url: 'http://swagger.io'
@@ -39,24 +40,37 @@ paths:
   /pet:
     post:
       tags:
-        - pet
-      summary: Add a new pet to the store
-      description: ''
+        - server
+      summary: Add a new server
+      description: >-
+        Adds a server to the list of servers you wish to gather information about. 
+        The server must physically exist in the CloudUla Datacenter. When staff at CloudUla 
+        physically adds a server to the Datacenter the server will be added to your list of 
+        servers for you by default. This POST may be neccessary should you DELETE the server 
+        and wish to add it back in.
+         
+        An ID will be assigned to the server by this endpoint.
       operationId: addPet
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
       responses:
         '200':
-          description: OK
+          description: OK - The server was added
+        '401':
+          description: Invalid API Key - Unauthorized
         '405':
           description: Invalid input
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
+        '500':
+          description: Internal Server Error - Not able to determine the exact error
       requestBody:
         $ref: '#/components/requestBodies/Pet'
     put:
       tags:
-        - pet
+        - server
       summary: Update an existing pet
       description: ''
       operationId: updatePet
@@ -70,7 +84,7 @@ paths:
         '405':
           description: Validation exception
       security:
-        - petstore_auth:
+        - cloudula_auth:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -78,7 +92,7 @@ paths:
   /pet/findByStatus:
     get:
       tags:
-        - pet
+        - server
       summary: Finds Pets by status
       description: Multiple status values can be provided with comma separated strings
       operationId: findPetsByStatus
@@ -114,13 +128,13 @@ paths:
         '400':
           description: Invalid status value
       security:
-        - petstore_auth:
+        - cloudula_auth:
             - 'write:pets'
             - 'read:pets'
   /pet/findByTags:
     get:
       tags:
-        - pet
+        - server
       summary: Finds Pets by tags
       description: >-
         Muliple tags can be provided with comma separated strings. Use tag1,
@@ -142,14 +156,14 @@ paths:
         '400':
           description: Invalid tag value
       security:
-        - petstore_auth:
+        - cloudula_auth:
             - 'write:pets'
             - 'read:pets'
       deprecated: true
-  '/pet/{petId}':
+  /pet/{petId}:
     get:
       tags:
-        - pet
+        - server
       summary: Find pet by ID
       description: Returns a single pet
       operationId: getPetById
@@ -179,7 +193,7 @@ paths:
         - api_key: []
     post:
       tags:
-        - pet
+        - server
       summary: Updates a pet in the store with form data
       description: ''
       operationId: updatePetWithForm
@@ -197,7 +211,7 @@ paths:
         '405':
           description: Invalid input
       security:
-        - petstore_auth:
+        - cloudula_auth:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -214,7 +228,7 @@ paths:
                   type: string
     delete:
       tags:
-        - pet
+        - server
       summary: Deletes a pet
       description: ''
       operationId: deletePet
@@ -239,13 +253,13 @@ paths:
         '404':
           description: Pet not found
       security:
-        - petstore_auth:
+        - cloudula_auth:
             - 'write:pets'
             - 'read:pets'
-  '/pet/{petId}/uploadImage':
+  /pet/{petId}/uploadImage:
     post:
       tags:
-        - pet
+        - server
       summary: uploads an image
       description: ''
       operationId: uploadFile
@@ -265,7 +279,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
       security:
-        - petstore_auth:
+        - cloudula_auth:
             - 'write:pets'
             - 'read:pets'
       requestBody:
@@ -326,7 +340,7 @@ paths:
               $ref: '#/components/schemas/Order'
         description: order placed for purchasing the pet
         required: true
-  '/store/order/{orderId}':
+  /store/order/{orderId}:
     get:
       tags:
         - store
@@ -477,7 +491,7 @@ paths:
       responses:
         default:
           description: successful operation
-  '/user/{username}':
+  /user/{username}:
     get:
       tags:
         - user
@@ -588,10 +602,10 @@ components:
         application/xml:
           schema:
             $ref: '#/components/schemas/Pet'
-      description: Pet object that needs to be added to the store
+      description: Server object to add to your list of servers.
       required: true
   securitySchemes:
-    petstore_auth:
+    cloudula_auth:
       type: oauth2
       flows:
         implicit:
