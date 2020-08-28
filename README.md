@@ -1,4 +1,4 @@
-# Redocly API developer portal
+# CloudUla Developer Portal
 
 ## Prerequisites
 
@@ -25,7 +25,4 @@ We heavily rely on caching for performance issues so if some changes are not ref
 
 Read the [online documentation](https://docs.redoc.ly/developer-portal/introduction/).
 
-## Training program
 
-The starter template contains training exercises which will teach you how to build a developer portal.
-After you start the development server, navigate to the app and follow the instructions to get started with your training.
