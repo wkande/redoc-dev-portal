@@ -1,5 +1,8 @@
 # CloudUla Developer Portal
 
+CloudUla is a fictitious company. This GitHub repo exists to support a fictitious Developer 
+Portal of the OpenAPI tools to document REST APIs.
+
 ## Prerequisites
 
 - [node.js >= 10.15.1](https://nodejs.org/en/)
