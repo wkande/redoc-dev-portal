@@ -109,6 +109,7 @@ paths:
         - name: api_key
           in: header
           required: true
+          description: Try > DEMO_KEY_FOR_ME
           schema:
             type: string
         - name: status
@@ -153,6 +154,7 @@ paths:
         - name: api_key
           in: header
           required: true
+          description: Try > DEMO_KEY_FOR_ME
           schema:
             type: string
         - name: tags
@@ -188,6 +190,7 @@ paths:
         - name: api_key
           in: header
           required: true
+          description: Try > DEMO_KEY_FOR_ME
           schema:
             type: string
         - name: serverId
@@ -221,6 +224,7 @@ paths:
         - name: api_key
           in: header
           required: true
+          description: Try > DEMO_KEY_FOR_ME
           schema:
             type: string
         - name: serverId
@@ -261,6 +265,7 @@ paths:
         - name: api_key
           in: header
           required: true
+          description: Try > DEMO_KEY_FOR_ME
           schema:
             type: string
         - name: serverId
